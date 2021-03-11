@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:helioaula/app/view/contact_list_back.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import './contact_form_back.dart';
 
@@ -15,6 +16,7 @@ class ContactForm extends StatelessWidget {
     TextEditingController urlController = TextEditingController();
 
     var _back = ContactFormBack(context);
+    final _backList = ContactListBack();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -27,6 +29,7 @@ class ContactForm extends StatelessWidget {
               _form.currentState.save();
               if (_back.isValid) {
                 _back.save();
+                _backList.refreshContactList();
                 Navigator.of(context).pop();
               }
             },
@@ -109,6 +112,7 @@ Widget formField({
   if (mask != null) {
     masked = MaskTextInputFormatter(
       mask: mask,
+      filter: {"#": RegExp(r'[0-9]')},
     );
   }
 

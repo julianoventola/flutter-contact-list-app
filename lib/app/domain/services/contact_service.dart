@@ -65,7 +65,7 @@ class ContactService {
 
   validatePhone(String phone) {
     // Formato (99) 9 9999-9999
-    var format = RegExp(r'\([1-9]{2}\) [9] [6-9]{1}[0-9]{3}\-[0-9]{4}$');
+    var format = RegExp(r'\([1-9]{2}\) [9] [0-9]{4}\-[0-9]{4}$');
 
     if (phone == null) {
       throw new DomainLayerException(
@@ -73,7 +73,7 @@ class ContactService {
       );
     } else if (!format.hasMatch(phone)) {
       throw new DomainLayerException(
-        cause: 'Formato de telefone inválido, esperado: (99) 9 9999-9999',
+        cause: 'Formato de telefone inválido, esperado: (##) 9 ####-####',
       );
     }
   }
