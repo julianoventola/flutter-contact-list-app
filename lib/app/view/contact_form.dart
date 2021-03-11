@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helioaula/app/view/contact_list_back.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+//import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:easy_mask/easy_mask.dart';
 import './contact_form_back.dart';
 
 class ContactForm extends StatelessWidget {
@@ -62,7 +63,7 @@ class ContactForm extends StatelessWidget {
                 formField(
                   labelText: 'Telefone',
                   hintText: '(99) 9 9999-9999',
-                  mask: '(##) # ####-####',
+                  mask: '(99) 9? 9999-9999', //'(##) # ####-####',
                   keyboardType: TextInputType.number,
                   controller:
                       _back.contact.telefone == null ? phoneController : null,
@@ -108,20 +109,20 @@ Widget formField({
   String Function(String) validator,
   void Function(String) onSaved,
 }) {
-  MaskTextInputFormatter masked;
+  /* MaskTextInputFormatter masked;
   if (mask != null) {
     masked = MaskTextInputFormatter(
       mask: mask,
       filter: {"#": RegExp(r'[0-9]')},
     );
-  }
+  }*/
 
   return TextFormField(
     validator: validator,
     onSaved: onSaved,
     initialValue: initialValue,
     controller: controller,
-    inputFormatters: mask != null ? [masked] : [],
+    inputFormatters: mask != null ? [TextInputMask(mask: mask)] : [],
     keyboardType: keyboardType,
     decoration: InputDecoration(
       labelText: labelText,
